@@ -2,32 +2,96 @@
 <html>
 
 <head>
-    <title>UPP 465 Week 5</title>
+    <title>UPP 465 Week 6</title>
+
+    <!-- Copy your CSS file link here:  -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Copy your leaflet link here:  -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+    <!-- Copy your Leaflet Basemap Provider Link Here: -->
+    <script src="js/leaflet-providers.js"></script>
+
+    <!-- Copy your Google font link here:  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Walter+Turncoat&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-   
-</div>
-
 <div id = "introtext">
     <h1>Urban Informalities: Street Vendors </h1>
     <h2><img src="pictures/LVSketch.jpg"></h2>
     <h3>This map focuses on the Chicago Neighborhood of Little Village. It attempts to review what spaces have the most compatible features for street vendors.  The goal is to identify spaces that have higher compatibilities in hopes that pedestrian improvements can be prioritized in these areas.</h3>  
 </div>
-   
-<div class = "map">
-<style>.embed-container {position: relative; padding-bottom: 80%; height: 0; max-width: 100%;} .embed-container iframe, .embed-container object, .embed-container iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;} small{position: absolute; z-index: 40; bottom: 0; margin-bottom: -15px;}</style><div class="embed-container"><iframe width="500" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="Assignment 1" src="//univofillinois.maps.arcgis.com/apps/Embed/index.html?webmap=f1442602c05f4d89be8767ed2d52ca11&extent=-87.7643,41.8105,-87.6376,41.8634&zoom=true&previewImage=false&scale=true&search=true&searchextent=true&legend=true&basemap_gallery=true&disable_scroll=true&theme=light"></iframe></div>
-</div>
 
-<div id="linkandpicture">
-    <h1><a href="https://streetvendorschi.org/">You can learn more about efforts to improve opportunities for street vendors in the City of Chicago here.</h1>
-    <h2> Stree vending is a crucial component in the informal economy of many parts of the world. The importance of this economy is best captured most recently by the Netflix Documentary "Street Food"</h2>
-    <h3><img src="pictures/streetvendingla.jpg"></h3>
-    
+
+<div id = "map"><!-- Using Leaflet below, we will put a map in this div --></div>
+
+
+<script> 
+
+// initialize your map here 
+var map = L.map('map').setView([41.84451, -87.71244], 18);
+
+// add a base layer 
+var Stamen_Toner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    subdomains: 'abcd',
+    minZoom: 0,
+    maxZoom: 20,
+    ext: 'png'
+}).addTo(map);
+
+//create a variable that pull in a new icon  image
+var myIcon = L.icon({
+    iconUrl: 'pictures/eloteraspado.png',
+    iconSize: [30, 30],
+});
+
+//create markers and give it the icon we created
+var marker = L.marker([41.84451, -87.71244],{
+    icon:myIcon
+    }).addTo(map).bindPopup("Street Vendor 1");
+
+var marker = L.marker([41.844482, -87.712268],{
+    icon:myIcon
+    }).addTo(map).bindPopup("Street Vendor 2");
+
+var marker = L.marker([41.844350, -87.712268],{
+    icon:myIcon
+}).addTo(map).bindPopup("Street Vendor 3")
+
+
+//create a polygon and style
+var polygon = L.polygon([
+    [41.84452, -87.71248],
+    [41.84452, -87.71205],
+    [41.84434, -87.71171],
+    [41.84433, -87.71248],
+], {
+    color: 'green',
+    fillColor: 'yellow',
+    fillOpacity: .11,
+}).addTo(map).bindPopup("Available ROW space between building footprints");
+
+//create a line
+var line = L.polyline([
+    [41.84450, -87.71251],
+    [41.84433, -87.71251],
+
+]).addTo(map).bindPopup("66-foot wide ROW");
+
+
+</script>
+   
 </div>
 
 </body>
